@@ -2,7 +2,7 @@
 
 int main(int argc, char* []) {
 	std::cout << "Started program" << std::endl;
-	std::cout << "Press escape for closing the program" << std::endl;
+	std::cout << "Press escape to close the program" << std::endl;
 	mandelbrot newSet;
 	newSet.display();
 	std::cout << "Closing program... ";

@@ -53,16 +53,17 @@ void mandelbrot::display() {
     // Define the view parameters for the Mandelbrot set
     double minX = -2.0;
     double maxX = 1.0;
-    double minY = -1.5; // Adjusted to center the Mandelbrot set
-    double maxY = 1.5;  // Adjusted to center the Mandelbrot set
+    double minY = -1.5; 
+    double maxY = 1.5;  
 
     while (isRunning) {
         // Handle SDL events
         handleEvents();
 
-        // Adjust the iteration steps for smoother rendering
-        for (double i = 0.0; i < 1.0; i += 0.002) {
-            for (double j = 0.0; j < 1.0; j += 0.002) {
+        //Interpolation must be in a range between 0 and 1 
+        for (double i = 0.0; i < 1.0; i += 0.001) {
+            for (double j = 0.0; j < 1.0; j += 0.001) {
+                //Linear interpolation
                 double point_X = std::lerp(minX, maxX, i);
                 double point_Y = std::lerp(minY, maxY, j);
 
@@ -90,11 +91,13 @@ void mandelbrot::display() {
 
 // Function to determine if a complex number is in the Mandelbrot set
 int mandelbrot::isInSet(std::complex<double> c) {
+    //For every point checked, Z is initialized to 0
     std::complex<double> z(0, 0);
 
-    for (int i = 0; i < 256; i++) { // Increased the number of iterations for better accuracy
+    for (int i = 0; i < 256; i++) { 
         z = std::pow(z, 2) + c;
-
+        //Norm returns the square magnitud of the given complex number 
+        //This checks if the number is NOT in the set
         if (std::norm(z) > 4.0) {
             return i;
         }
